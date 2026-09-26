@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>主页内容配置</title>
+<style>
+:root{color-scheme:light;--paper:#fff;--cloud:#f5f5f7;--cloud-2:#ebebef;--ink:#1d1d1f;--graphite:#6e6e73;--hair:rgba(0,0,0,.09);--accent:#0056d6;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--cloud);color:var(--ink);font:15px/1.5 var(--font);-webkit-font-smoothing:antialiased;display:grid;grid-template-rows:auto 1fr}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+input,textarea{font:inherit;color:inherit;width:100%;border:0;background:#fff;border-radius:12px;padding:10px 14px;box-shadow:inset 0 0 0 1px var(--hair)}
+input:focus,textarea:focus{outline:0;box-shadow:inset 0 0 0 2px var(--accent)}
+textarea{min-height:76px;resize:vertical}
+input[type=number]{width:88px;text-align:center}
+
+/* top bar */
+.bar{background:rgba(245,245,247,.9);backdrop-filter:blur(16px);border-bottom:1px solid var(--hair);padding:10px 24px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.bar__title{font-weight:600;margin-right:auto}
+.btn{display:inline-flex;align-items:center;gap:.4em;height:38px;padding:0 16px;border-radius:999px;font-weight:600;font-size:14px;white-space:nowrap;transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn--ink{background:var(--ink);color:#fff}.btn--ink:hover{background:#000}
+.btn--paper{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.08)}.btn--paper:hover{background:#fafafa}
+.btn--xs{height:30px;padding:0 12px;font-size:13px}
+
+/* sidebar + panel */
+.layout{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:0}
+.side{border-right:1px solid var(--hair);padding:18px 12px;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.side button{text-align:left;padding:10px 14px;border-radius:12px;color:var(--graphite);font-weight:600;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+.side button:hover{background:var(--cloud-2);color:var(--ink)}
+.side button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.side .n{font-weight:500;font-size:12px;color:var(--graphite);background:var(--cloud-2);border-radius:999px;padding:1px 8px}
+.side button.on .n{background:var(--cloud)}
+.side__hint{margin-top:auto;padding:12px 14px 4px;font-size:12px;color:var(--graphite);line-height:1.5}
+.side__hint code{background:#fff;padding:0 5px;border-radius:5px}
+.panel{overflow:auto;padding:28px 36px 120px}
+.panel section{display:none;max-width:1120px}
+.panel section.on{display:block}
+h2{margin:0 0 4px;font-size:24px;letter-spacing:-.02em;color:var(--accent)}
+.sub{margin:0 0 20px;color:var(--graphite);font-size:14px}
+.f{display:grid;gap:6px;margin-bottom:14px}
+.f label{font-size:13px;font-weight:600;color:var(--graphite)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px}
+.box{background:#fff;border-radius:20px;padding:22px 24px 10px;margin-bottom:16px}
+.box h3{margin:0 0 14px;font-size:15px;color:var(--graphite);font-weight:600}
+
+/* list editor */
+.ctl{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0 0 12px}
+.ctl .spacer{flex:1}
+.ctl label{font-size:14px;color:var(--graphite);display:flex;align-items:center;gap:8px}
+.row{background:#fff;border-radius:16px;margin-bottom:8px;overflow:hidden}
+.row__head{display:flex;align-items:center;gap:12px;padding:12px 14px 12px 18px;cursor:pointer;user-select:none}
+.row__head:hover{background:#fafafa}
+.row__idx{font-size:12px;color:var(--graphite);width:2.2em;flex:none;font-variant-numeric:tabular-nums}
+.row__sum{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row__sum b{font-weight:600}
+.row__sum span{color:var(--graphite);margin-left:8px}
+.row__tools{display:flex;gap:4px;flex:none}
+.row__tools button{width:30px;height:30px;border-radius:50%;background:var(--cloud);display:grid;place-items:center;font-size:13px;color:var(--graphite)}
+.row__tools button:hover{background:var(--cloud-2);color:var(--ink)}
+.row__chev{width:12px;height:12px;flex:none;transition:transform .2s;stroke:var(--graphite);fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.row.open .row__chev{transform:rotate(90deg)}
+.row__body{display:none;padding:6px 18px 6px;border-top:1px solid var(--hair)}
+.row.open .row__body{display:block}
+.row--hidden{opacity:.55}
+.row--hidden .row__head{background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(0,0,0,.02) 10px 20px)}
+.divider{display:flex;align-items:center;gap:12px;margin:18px 0 10px;color:var(--graphite);font-size:13px}
+.divider::after{content:"";flex:1;height:1px;background:var(--hair)}
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:9}
+.toast.on{opacity:1}
+@media (max-width:820px){.layout{grid-template-columns:1fr}.side{flex-direction:row;flex-wrap:wrap;border-right:0;border-bottom:1px solid var(--hair)}.side__hint{display:none}.grid2,.grid3{grid-template-columns:1fr}.panel{padding:20px}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <span class="bar__title">主页内容配置</span>
+  <label class="btn btn--paper" for="loadFile">载入已有 config.js</label><input type="file" id="loadFile" accept=".js" hidden>
+  <button class="btn btn--paper" id="btnPreview">预览</button>
+  <button class="btn btn--ink" id="btnDownload">下载 config.js</button>
+</div>
+<div class="layout">
+  <nav class="side" id="side"></nav>
+  <main class="panel" id="panel"></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+let S = JSON.parse(JSON.stringify(window.SITE));
+const panel = document.getElementById("panel"), side = document.getElementById("side");
+const toast = m => { const t = document.getElementById("toast"); t.textContent = m; t.classList.add("on"); setTimeout(() => t.classList.remove("on"), 1800); };
+const h = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const CHEV = '<svg class="row__chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>';
+
+/* ---- fields ---- */
+function field(obj, key, label, opts = {}) {
+  const w = h("div", "f"); w.appendChild(h("label", null, label));
+  const i = opts.long ? h("textarea") : h("input"); i.value = obj[key] ?? ""; if (opts.placeholder) i.placeholder = opts.placeholder;
+  i.addEventListener("input", () => { obj[key] = i.value; if (opts.onInput) opts.onInput(); }); w.appendChild(i); return w;
+}
+const grid = (parent, cls = "grid2") => { const g = h(cls === "grid3" ? "div" : "div", cls); parent.appendChild(g); return g; };
+const linksToText = ls => (ls || []).map(l => `${l.label} | ${l.url}`).join("\n");
+const textToLinks = t => t.split("\n").map(s => s.trim()).filter(Boolean).map(s => { const [label, ...rest] = s.split("|"); return { label: label.trim(), url: rest.join("|").trim() || "#" }; });
+function linksField(obj, label) {
+  const w = h("div", "f"); w.appendChild(h("label", null, label));
+  const i = h("textarea"); i.value = linksToText(obj.links); i.placeholder = "PDF | https://...\nCode | https://...";
+  i.addEventListener("input", () => obj.links = textToLinks(i.value)); w.appendChild(i); return w;
+}
+
+/* ---- list editor: newest first, only the shown ones listed, the rest behind "管理其它" ---- */
+function listEditor(parent, group, blank, summary, rowRender, labels) {
+  const arr = group.items; let showOthers = false; const openSet = new Set();
+  const box = h("div"); parent.appendChild(box);
+  const draw = () => {
+    box.innerHTML = "";
+    const shown = Math.max(0, Math.min(arr.length, Number(group.show) || 0));
+    const ctl = h("div", "ctl");
+    const add = h("button", "btn btn--ink btn--xs", "+ " + labels.add); add.type = "button";
+    add.addEventListener("click", () => { const it = JSON.parse(JSON.stringify(blank)); arr.unshift(it); openSet.clear(); openSet.add(it); draw(); });
+    ctl.appendChild(add);
+    const cnt = h("label"); cnt.innerHTML = `网站显示前 <input type="number" min="0" max="99"> 条，共 ${arr.length} 条`;
+    const num = cnt.querySelector("input"); num.value = group.show ?? arr.length; num.addEventListener("change", () => { group.show = Math.max(0, parseInt(num.value) || 0); draw(); });
+    ctl.appendChild(cnt); ctl.appendChild(h("span", "spacer"));
+    if (arr.length > shown) { const m = h("button", "btn btn--paper btn--xs", (showOthers ? "收起其它" : "管理其它") + `（${arr.length - shown} 条未显示）`); m.type = "button"; m.addEventListener("click", () => { showOthers = !showOthers; draw(); }); ctl.appendChild(m); }
+    box.appendChild(ctl);
+    const row = (item, i) => {
+      const r = h("div", "row" + (i >= shown ? " row--hidden" : "") + (openSet.has(item) ? " open" : ""));
+      const head = h("div", "row__head");
+      head.innerHTML = `${CHEV}<span class="row__idx">${i + 1}</span><span class="row__sum">${summary(item) || "<span>（空）</span>"}</span>`;
+      const tools = h("div", "row__tools");
+      const mk = (t, title, fn) => { const b = h("button", null, t); b.title = title; b.type = "button"; b.addEventListener("click", e => { e.stopPropagation(); fn(); draw(); }); tools.appendChild(b); };
+      mk("↑", "上移", () => { if (i > 0) [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]]; });
+      mk("↓", "下移", () => { if (i < arr.length - 1) [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]]; });
+      mk("✕", "删除", () => { if (confirm("删除这一条？")) { arr.splice(i, 1); openSet.delete(item); } });
+      head.appendChild(tools);
+      head.addEventListener("click", () => { openSet.has(item) ? openSet.delete(item) : openSet.add(item); r.classList.toggle("open"); });
+      r.appendChild(head);
+      const body = h("div", "row__body"); rowRender(body, item, () => { head.querySelector(".row__sum").innerHTML = summary(item) || "<span>（空）</span>"; });
+      r.appendChild(body); return r;
+    };
+    arr.slice(0, shown).forEach((it, i) => box.appendChild(row(it, i)));
+    if (showOthers && arr.length > shown) {
+      box.appendChild(h("div", "divider", `以下 ${arr.length - shown} 条不在网站上显示（把「显示前 N 条」调大，或上移到前面）`));
+      arr.slice(shown).forEach((it, k) => box.appendChild(row(it, shown + k)));
+    }
+  };
+  draw();
+}
+
+/* ---- sections ---- */
+const SECTIONS = [];
+function section(id, title, sub, count) { const s = h("section"); s.id = "sec-" + id; s.appendChild(h("h2", null, title)); if (sub) s.appendChild(h("p", "sub", sub)); panel.appendChild(s); SECTIONS.push({ id, title, el: s, count }); return s; }
+const boxed = (parent, title) => { const b = h("div", "box"); if (title) b.appendChild(h("h3", null, title)); parent.appendChild(b); return b; };
+
+function build() {
+  panel.innerHTML = ""; side.innerHTML = ""; SECTIONS.length = 0;
+
+  let s = section("profile", "首页信息", "头像、名字、一句话简介和外链。");
+  let b = boxed(s); let g = grid(b); g.appendChild(field(S, "name", "名字")); g.appendChild(field(S, "email", "邮箱"));
+  g = grid(b); g.appendChild(field(S, "portrait", "头像路径", { placeholder: "photo/portrait_web.jpg" }));
+  b.appendChild(field(S, "lede", "一句话简介：**两个星号**加粗；{school} 和 {advisor} 会替换成下面的学校、导师链接；也可以写 [文字](网址)", { long: true }));
+  b = boxed(s, "学校（{school}）与导师（{advisor}）");
+  S.school = S.school || { name: "", url: "", logo: "" }; S.advisor = S.advisor || { name: "", url: "" };
+  g = grid(b, "grid3"); g.appendChild(field(S.school, "name", "学校名")); g.appendChild(field(S.school, "url", "学校链接")); g.appendChild(field(S.school, "logo", "学校小 logo 路径", { placeholder: "photo/hkust.png" }));
+  g = grid(b); g.appendChild(field(S.advisor, "name", "导师")); g.appendChild(field(S.advisor, "url", "导师主页"));
+  b = boxed(s, "外链（第一个显示为黑色按钮）");
+  S.links.forEach((l, i) => { const gg = grid(b); gg.appendChild(field(l, "label", "名称 " + (i + 1))); gg.appendChild(field(l, "url", "链接")); });
+
+  s = section("news", "News", "默认只列出网站上显示的几条；点「添加」会插到最前面。", () => S.news.items.length);
+  b = boxed(s); g = grid(b); g.appendChild(field(S.news, "kicker", "区块名（蓝）")); g.appendChild(field(S.news, "heading", "副标题（黑）"));
+  listEditor(s, S.news, { date: "", text: "" },
+    it => it.date || it.text ? `<b>${esc(it.date)}</b><span>${esc(it.text)}</span>` : "",
+    (body, it, refresh) => { body.appendChild(field(it, "date", "日期", { placeholder: "Sep 2026", onInput: refresh })); body.appendChild(field(it, "text", "内容", { long: true, onInput: refresh })); },
+    { add: "添加一条" });
+
+  s = section("research", "Research", "只有一个主课题。");
+  b = boxed(s); g = grid(b); g.appendChild(field(S.research, "kicker", "区块名（蓝）")); g.appendChild(field(S.research, "heading", "副标题（黑）"));
+  b.appendChild(field(S.research, "lede", "区块引子", { long: true }));
+  b = boxed(s, "主课题卡片");
+  g = grid(b); g.appendChild(field(S.research, "category", "卡片小字（如 Main topic）")); g.appendChild(field(S.research, "figure", "配图路径", { placeholder: "figures/fig13.png" }));
+  b.appendChild(field(S.research, "title", "课题标题")); b.appendChild(field(S.research, "description", "课题描述", { long: true }));
+
+  s = section("papers", "Publications", "作者用英文逗号分隔，与「名字」一致的作者自动加粗；缩略图填 figures/ 里的路径。", () => S.papers.items.length);
+  b = boxed(s); g = grid(b); g.appendChild(field(S.papers, "kicker", "区块名（蓝）")); g.appendChild(field(S.papers, "heading", "副标题（黑）"));
+  listEditor(s, S.papers, { title: "", authors: "", venue: "", thumb: "", links: [{ label: "PDF", url: "#" }] },
+    it => it.title ? `<b>${esc(it.title)}</b><span>${esc(it.venue)}</span>` : "",
+    (body, it, refresh) => {
+      body.appendChild(field(it, "title", "论文标题", { onInput: refresh }));
+      body.appendChild(field(it, "authors", "作者", { placeholder: "Shaofeng Liang, A. Author, B. Author" }));
+      const gg = grid(body); gg.appendChild(field(it, "venue", "发表处与年份", { placeholder: "IEEE TCSVT, 2026", onInput: refresh })); gg.appendChild(field(it, "thumb", "缩略图路径", { placeholder: "figures/fig01.png" }));
+      body.appendChild(linksField(it, "链接（每行一个：标签 | 网址）"));
+    }, { add: "添加论文" });
+
+  s = section("figures", "Selected figures", "漂移图廊。label 是图号（Fig. 2），source 是出处一行小字。", () => S.figures.items.length);
+  b = boxed(s); g = grid(b); g.appendChild(field(S.figures, "kicker", "区块名（蓝）")); g.appendChild(field(S.figures, "heading", "副标题（黑）"));
+  b.appendChild(field(S.figures, "lede", "区块引子", { long: true }));
+  listEditor(s, S.figures, { src: "", label: "Fig. 1", caption: "", source: "", tool: "", url: "#" },
+    it => it.src || it.caption ? `<b>${esc(it.label)}</b> ${esc(it.caption)}<span>${esc(it.src)}</span>` : "",
+    (body, it, refresh) => {
+      const gg = grid(body, "grid3"); gg.appendChild(field(it, "src", "图片路径", { onInput: refresh })); gg.appendChild(field(it, "label", "图号", { onInput: refresh })); gg.appendChild(field(it, "tool", "绘制工具"));
+      body.appendChild(field(it, "caption", "图注", { long: true, onInput: refresh }));
+      const g2 = grid(body); g2.appendChild(field(it, "source", "出处（论文短名, 年份）")); g2.appendChild(field(it, "url", "论文链接"));
+    }, { add: "添加一张图" });
+  b = boxed(s, "图廊下方的合作邀请卡");
+  g = grid(b); g.appendChild(field(S.figures.offer, "category", "小字")); g.appendChild(field(S.figures.offer, "button", "按钮文字"));
+  b.appendChild(field(S.figures.offer, "title", "标题")); b.appendChild(field(S.figures.offer, "description", "正文", { long: true }));
+
+  s = section("people", "Collaborators", "名字、单位和主页链接。", () => S.collaborators.items.length);
+  b = boxed(s); g = grid(b); g.appendChild(field(S.collaborators, "kicker", "区块名（蓝）")); g.appendChild(field(S.collaborators, "heading", "副标题（黑）"));
+  if (S.collaborators.show == null) S.collaborators.show = S.collaborators.items.length;
+  listEditor(s, S.collaborators, { name: "", affiliation: "", url: "#" },
+    it => it.name ? `<b>${esc(it.name)}</b><span>${esc(it.affiliation)}</span>` : "",
+    (body, it, refresh) => { const gg = grid(body, "grid3"); gg.appendChild(field(it, "name", "名字", { onInput: refresh })); gg.appendChild(field(it, "affiliation", "单位", { onInput: refresh })); gg.appendChild(field(it, "url", "主页")); },
+    { add: "添加合作者" });
+
+  s = section("footer", "页脚", "口号一行英文一行中文。");
+  b = boxed(s); b.appendChild(field(S.footer, "slogan", "口号（英文大字）")); b.appendChild(field(S.footer, "sloganZh", "口号（中文小字）"));
+  g = grid(b); g.appendChild(field(S.footer, "location", "地点")); g.appendChild(field(S.footer, "copyright", "版权行"));
+  b.appendChild(field(S.footer, "note", "备注一行"));
+
+  // sidebar
+  SECTIONS.forEach(sec => {
+    const btn = h("button", null, `<span>${sec.title}</span>` + (sec.count ? `<span class="n">${sec.count()}</span>` : "")); btn.type = "button";
+    btn.addEventListener("click", () => show(sec.id)); btn.dataset.id = sec.id; side.appendChild(btn);
+  });
+  side.appendChild(h("div", "side__hint", "改完点右上角<b>下载 config.js</b>，替换仓库里的同名文件。图片先放进 <code>figures/</code>，这里填相对路径。"));
+  show(sessionStorage.getItem("admin-sec") || "profile");
+}
+function show(id) {
+  SECTIONS.forEach(sec => sec.el.classList.toggle("on", sec.id === id));
+  side.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.id === id));
+  side.querySelectorAll("button .n").forEach(n => { const sec = SECTIONS.find(x => x.id === n.parentElement.dataset.id); if (sec && sec.count) n.textContent = sec.count(); });
+  try { sessionStorage.setItem("admin-sec", id); } catch (_) {}
+  panel.scrollTop = 0;
+}
+build();
+
+/* ---- actions ---- */
+const serialize = () => "/* Generated by admin.html. Replace the config.js in the repository root with this file. */\nwindow.SITE = " + JSON.stringify(S, null, 2) + ";\n";
+document.getElementById("btnDownload").addEventListener("click", () => {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([serialize()], { type: "text/javascript" })); a.download = "config.js"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000); toast("已下载 config.js，替换仓库里的同名文件即可");
+});
+document.getElementById("btnPreview").addEventListener("click", () => {
+  try { localStorage.setItem("site-preview", JSON.stringify(S)); window.open("index.html?preview=1", "_blank"); }
+  catch (_) { toast("浏览器不允许本地预览，请先下载 config.js 再打开 index.html"); }
+});
+document.getElementById("loadFile").addEventListener("change", async e => {
+  const f = e.target.files[0]; if (!f) return;
+  const txt = await f.text(); const m = txt.match(/window\.SITE\s*=\s*(\{[\s\S]*\});?\s*$/);
+  if (!m) return toast("这不像是 config.js");
+  let parsed; try { parsed = JSON.parse(m[1]); } catch (_) { try { parsed = new Function("return " + m[1])(); } catch (__) { return toast("解析失败"); } }
+  S = parsed; build(); toast("已载入"); e.target.value = "";
+});
+</script>
+</body>
+</html>
