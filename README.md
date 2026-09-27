@@ -1,74 +1,85 @@
-# 学术主页：上线与维护
+# Academic homepage: publishing and maintenance
 
-这个文件夹就是整个网站，没有任何构建步骤，浏览器直接打开 `index.html` 就能看。
+This folder is the whole website. There is no build step: open `index.html` in a browser and it runs.
 
 ```
-index.html   页面骨架 + 样式 + 渲染逻辑（一般不用碰）
-config.js    所有文字内容：简介、News、Research、论文、图廊、合作者、页脚口号
-admin.html   配置页：表单填写 → 预览 → 下载新的 config.js
-figures/     论文图（png），config.js 里按相对路径引用
-photo/       头像 portrait_web.jpg（4:5，1000×1250）
+index.html   page skeleton, styles and rendering logic (rarely needs touching)
+config.js    all the content: intro, News, Research, papers, figure gallery, collaborators, footer
+admin.html   the editor: fill in forms, upload images, save config.js, preview
+figures/     paper figures (PNG), referenced from config.js by relative path
+photo/       portrait (portrait_web.jpg), school logo, favicons
+publish.sh   one command to push everything to GitHub Pages
 ```
 
-## 零、用终端推送（推荐，已配 SSH 的话）
+## 1. Publishing (GitHub Pages)
+
+The site lives at **https://shawnliang420.github.io**, served from the repository `shawnliang420/shawnliang420.github.io`.
+
+Every time you change something, run in Terminal:
 
 ```bash
-cd 这个文件夹
-bash publish.sh "first version"
+cd ~/Documents/shawnliang/项目集合/homepage
+bash publish.sh "what changed"
 ```
 
-以后每次改完内容：`bash publish.sh "add a paper"`。脚本会自动初始化 git、忽略 4 MB 原图、提交并推送到 `git@github.com:shawnliang420/shawnliang420.github.io.git`。
-推送后到仓库 **Settings → Pages**，Source 选 **Deploy from a branch**，Branch 选 `main` / `/ (root)`，保存一次即可（只需做一次）。
+The script initialises git on first run, ignores the 4 MB original portrait, commits everything and pushes. The live site updates within one or two minutes; if your browser still shows the old version, force-reload with ⌘⇧R.
 
-如果推送时报 `Permission denied (publickey)`，说明这台电脑还没配 GitHub 的 SSH 密钥：运行 `ssh-keygen -t ed25519 -C "你的邮箱"` 一路回车，再 `cat ~/.ssh/id_ed25519.pub` 把输出粘到 GitHub → Settings → SSH and GPG keys → New SSH key，然后重新运行脚本。不想折腾密钥就用下面第一节的网页上传。
+One-time setup (already done, only needed for a fresh repository): repository **Settings → Pages**, Source = *Deploy from a branch*, Branch = `main`, folder = `/ (root)`, Save.
 
-## 一、第一次上线（网页上传方式）
+If `publish.sh` fails with `Permission denied (publickey)`, this Mac has no SSH key registered with GitHub yet:
 
-1. 登录 GitHub，新建仓库，名字必须是 **`shawnliang420.github.io`**，选 Public，其余默认。
-2. 进入仓库，点 **Add file → Upload files**，把本文件夹里的全部内容（`index.html`、`admin.html`、`config.js`、`figures/`、`photo/`）拖进去，写一句 commit 说明，点 **Commit changes**。文件夹可以整个拖，GitHub 会保留目录结构。
-3. 仓库 **Settings → Pages**，Build and deployment 选 **Deploy from a branch**，Branch 选 `main`、目录选 `/ (root)`，Save。
-4. 等一两分钟，访问 **https://shawnliang420.github.io** 即可。
+```bash
+ssh-keygen -t ed25519 -C "sliang118@connect.hkust-gz.edu.cn"   # press Enter through the prompts
+cat ~/.ssh/id_ed25519.pub
+```
 
-`README.md` 传不传都行；`photo/portrait.jpg` 原图 4 MB，网站只用 `portrait_web.jpg`，原图可以不传。
+Copy the printed line into GitHub → profile picture → Settings → SSH and GPG keys → New SSH key, then run `publish.sh` again. If `git` itself is missing, run `xcode-select --install` first.
 
-## 二、以后改内容
+Alternative without any terminal: on the repository page use **Add file → Upload files** and drag in everything except `photo/portrait.jpg`.
 
-1. 本地双击 `admin.html`（它读的是同目录下的 `config.js`）。
-2. 左侧栏切换区块。News、Publications、Selected figures、Collaborators 都是同一套列表逻辑：**默认只列出网站上会显示的前 N 条**（N 在"网站显示前 N 条"里改），其余收在"管理其它"里；点"添加"会插到最前面并自动展开；每条默认折叠成一行，点开才编辑；每条都有上移 / 下移 / 删除。旧条目不用删，把 N 调小它们就不再显示，以后想放出来再调回去。
-3. 点 **预览**，会新开一个窗口看到改后的效果（预览走浏览器本地存储，不会改动任何文件）。
-4. 满意后点 **下载 config.js**，得到一份新的 `config.js`。
-5. 到 GitHub 仓库里替换它：打开仓库中的 `config.js` → 右上角铅笔图标 → 全选删掉 → 把新文件内容粘进去 → Commit changes。或者用 **Upload files** 直接把新文件拖进去覆盖。
-6. 一两分钟后网站更新。
+## 2. Editing content (admin.html, Chrome or Edge)
 
-也可以跳过配置页，直接在 GitHub 网页里编辑 `config.js`，它就是一段可读的 JSON。
+1. Double-click `admin.html`.
+2. First time only: click **Connect site folder** (top right), pick this `homepage` folder and allow read/write. The browser remembers it.
+3. Use the left sidebar to switch between sections: Profile, News, Research, Publications, Selected figures, Collaborators, Footer.
+4. Click **Save to folder** when done (writes `config.js` in place), then run `publish.sh`.
 
-## 二点五、加一篇论文（推荐流程，Chrome / Edge）
+Lists (News, Publications, Selected figures, Collaborators) all work the same way: only the first *N* entries are shown on the site (set *N* in "show the first N"), the rest are tucked behind **Manage others**; **Add** inserts at the top and opens the new entry; each entry collapses to a one-line summary and expands on click; every entry has move-up, move-down and delete. Old entries never need deleting: lower *N* and they disappear from the site, raise it and they come back.
 
-1. 双击 `admin.html`，第一次点右上角 **连接网站文件夹**，选中 `homepage` 这个文件夹并允许读写（只需一次，以后会记住）。
-2. 左侧 **Publications** → **+ 添加论文**（新论文会排在最前面）→ 填标题、作者、发表处。
-3. **封面图** 一栏点 **上传图片**，选一张白底 PNG（teaser 或 pipeline 最合适），它会自动存进 `figures/` 并填好路径，旁边出现缩略图。列表里的封面框是固定的 3:2 横框（约 140×86），图会从顶部开始裁满，所以最好用横图或先裁成 3:2；竖图会只露出上半部分。
-4. 链接一栏每行一个：`PDF | https://...`、`Code | https://...`。
-5. 想让它也出现在图廊：左侧 **Selected figures** → **+ 添加一张图** → 上传同一张或别的图，填图号和图注。
-6. 右上角 **保存到文件夹**（直接写回 `config.js`），然后终端里 `bash publish.sh "add paper"`。
+Text fields accept a little markup: `**bold**`, `[text](url)` for links, an empty line for a paragraph break (intro only). In the intro, `{school}` and `{advisor}` expand to the school and advisor links set below it.
 
-Safari 不支持直接写文件：图片手动拖进 `figures/`，路径栏手填，改完用 **下载 config.js** 覆盖。
+Refresh `admin.html` before saving if it has been open for a long time, otherwise an old copy of the form can overwrite fields that were added later.
 
-## 三、换图、换头像
+Safari cannot write files from a web page: there, upload images by copying them into `figures/` by hand, type the path, and use **Download config.js** to replace the file.
 
-- 新论文图放进 `figures/`，命名随意（建议 `fig-论文短名-序号.png`），然后在配置页对应位置填 `figures/xxx.png`。图廊和论文缩略图都用白底 png，页面会把白底融进底色。
-- 头像替换 `photo/portrait_web.jpg`，保持 4:5 竖版即可（页面会按上部 20% 对齐裁切）。
-- 不再用的图从 `figures/` 删掉，仓库保持干净。
+## 3. Adding a paper
 
-## 三点五、"Ask about a figure" 问卷怎么收到邮件
+1. Publications → **Add paper**. Fill in title, authors (comma-separated; every occurrence of your own name is bolded automatically, `*` for equal contribution is fine), venue and year.
+2. **Cover image** → **Upload image**: pick a white-background PNG (a teaser or pipeline figure works best). It is saved into `figures/`, the path is filled in and a thumbnail appears. The list shows covers in a fixed 3:2 frame (about 140 × 86 px), cropped from the top, so landscape images or a pre-cropped 3:2 image look best; a tall figure will only show its top part.
+3. Links, one per line: `PDF | https://…`, `Code | https://…`, `Project | https://…`.
+4. Optionally add the same figure to Selected figures so it also drifts through the gallery.
+5. **Save to folder**, then `bash publish.sh "add paper"`.
 
-图廊下面的按钮会弹出一个小表单（主题、研究内容、需求、邮箱）。网站是静态的，自己发不了邮件，两种收法：
+## 4. Images
 
-- **推荐：接 Formspree（免费）。** 打开 https://formspree.io 用邮箱注册 → New form → 填你的邮箱 → 得到一个地址 `https://formspree.io/f/xxxxxxxx` → 粘到配置页 Selected figures 最下面"问卷提交地址"里 → 保存并发布。之后访客点 Send，你的邮箱直接收到一封带四项内容的邮件，回复即回到访客邮箱。免费额度每月 50 封，够用。
-- **不接任何服务：** 地址留空，访客点 Send 会打开他自己的邮件客户端，收件人是你、四项内容已填在正文里，他再点发送。
+- New figures go into `figures/`; any file name is fine. Use white-background PNG: the page blends white into whatever sits behind it, so the figure looks printed on the page rather than pasted on.
+- The Research card takes its background colour from the figure itself. Leave "Card colour" empty or `auto` to sample the figure's edge colour on load, click **Pick from image** to store an explicit value, or type `none` for the default grey.
+- The portrait is `photo/portrait_web.jpg`, 4:5 portrait orientation, cropped so the head sits in the top fifth. Replace the file to change it.
+- The school logo goes in `photo/hkust.png` (transparent PNG or SVG); it appears inline before the school name in the intro.
+- Favicons (`photo/favicon-*.png`, `photo/apple-touch-icon.png`) are circular crops of the portrait. Regenerate them if the portrait changes.
 
-## 四、几点说明
+## 5. The "Ask about a figure" form
 
-- `admin.html` 上传后别人也能打开，但它只是个表单，不含任何密钥，也改不了你的网站；不想公开就不上传，只在本地用。
-- 简介和 News 文本里可以用 `**两个星号**` 加粗一句话。
-- 论文作者一栏用英文逗号分隔，和"名字"一致的作者会自动加粗。
-- 想换域名：仓库根目录加一个 `CNAME` 文件写域名，DNS 加 CNAME 记录指向 `shawnliang420.github.io`。
+The button under the figure gallery opens a short form (topic, what the paper is about, what is needed, email). The site is static and cannot send mail by itself, so there are two ways to receive submissions:
+
+- **Recommended: Formspree (free).** Sign up at https://formspree.io with your email, create a form, copy its endpoint (`https://formspree.io/f/xxxxxxxx`) into Selected figures → "Form endpoint" in admin.html, save and publish. Each submission arrives in your inbox with the four fields; replying goes straight to the visitor. The free tier allows 50 submissions a month.
+- **No service:** leave the endpoint empty. Clicking Send opens the visitor's own mail app with you as recipient and the four fields already in the body. This is also the automatic fallback if Formspree does not respond.
+
+## 6. The Like button
+
+The heart in the top bar keeps a shared counter through a free public counter service (abacus.jasoncameron.dev) under the namespace set in Profile → Like button. If the service is unreachable the page falls back to a per-browser count so nothing breaks. The messages that pop up on click ("Accept!", "Best paper", …) are editable, one per line. Changing the namespace restarts the count from zero.
+
+## 7. Notes
+
+- `admin.html` is published along with the site. It is only a form: it holds no secrets and cannot change the live site from the browser, but if you would rather keep it private, leave it out when uploading and use it locally.
+- Custom domain: add a `CNAME` file containing the domain to the repository root and point a DNS CNAME record at `shawnliang420.github.io`.
