@@ -239,7 +239,8 @@ window.SITE = {
       "category": "Figures for your paper",
       "title": "Drawing figures is the part of research I enjoy most.",
       "description": "I also draw for other people's papers: pipeline diagrams, result plates, and plots that read at a glance. If yours needs one, send me the draft and the deadline and we can work it out together.",
-      "button": "Ask about a figure"
+      "button": "Ask about a figure",
+      "endpoint": "https://formspree.io/f/meaorwrv"
     }
   },
   "collaborators": {
