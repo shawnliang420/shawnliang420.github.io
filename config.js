@@ -98,7 +98,7 @@ window.SITE = {
         "links": [
           {
             "label": "PDF",
-            "url": "#https://arxiv.org/pdf/2606.07524"
+            "url": "https://arxiv.org/pdf/2606.07524"
           }
         ]
       },
@@ -110,7 +110,7 @@ window.SITE = {
         "links": [
           {
             "label": "PDF",
-            "url": "# https://arxiv.org/pdf/2608.03902"
+            "url": "https://arxiv.org/pdf/2608.03902"
           }
         ]
       },
@@ -122,7 +122,7 @@ window.SITE = {
         "links": [
           {
             "label": "PDF",
-            "url": "#https://arxiv.org/pdf/2512.00369"
+            "url": "https://arxiv.org/pdf/2512.00369"
           }
         ]
       },
@@ -134,7 +134,7 @@ window.SITE = {
         "links": [
           {
             "label": "PDF",
-            "url": "#https://arxiv.org/pdf/2511.21053"
+            "url": "https://arxiv.org/pdf/2511.21053"
           }
         ]
       },
@@ -146,7 +146,7 @@ window.SITE = {
         "links": [
           {
             "label": "PDF",
-            "url": "#https://ieeexplore.ieee.org/document/11417211"
+            "url": "https://ieeexplore.ieee.org/document/11417211"
           }
         ]
       },
