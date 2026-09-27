@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shaofeng Liang</title>
 <meta name="description" content="Shaofeng Liang, PhD student at HKUST (Guangzhou). Human-robot isomorphic guide-dog robots and aerial visual perception.">
+<link rel="icon" type="image/png" sizes="32x32" href="photo/favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="photo/favicon-64.png">
+<link rel="icon" type="image/png" sizes="512x512" href="photo/favicon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="photo/apple-touch-icon.png">
 <style>
 :root{
   color-scheme: light;
@@ -431,7 +435,9 @@ const capHTML = f => (f.label && f.label.trim() ? `<b>${esc(f.label.trim().repla
 text("pubKicker", SITE.papers.kicker); text("pubHeading", SITE.papers.heading);
 function renderPapers(items){ $("#pubs").innerHTML = ""; items.forEach(p => {
   const a = el("article", "pub");
-  const by = esc(p.authors).split(/,\s*/).map(n => n.trim() === SITE.name ? `<b>${n}</b>` : n).join(", ");
+  // bold every occurrence of my name, whatever the separator (comma or semicolon) and even with a trailing * for equal contribution
+  const nameRe = new RegExp(SITE.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g");
+  const by = esc(p.authors).replace(nameRe, m => `<b>${m}</b>`);
   a.innerHTML = `<button class="pub__thumb" type="button" aria-label="Open a figure from this paper"><img src="${esc(p.thumb)}" alt=""></button>
     <div><h3 class="pub__title">${esc(p.title)}</h3><p class="pub__by">${by}</p><p class="pub__venue">${esc(p.venue)}</p></div>
     <div class="pub__links">${(p.links || []).map(l => `<a class="btn btn--ghost btn--xs" href="${esc(l.url)}">${icon(iconFor(l.label))}${esc(l.label)}</a>`).join("")}</div>`;
