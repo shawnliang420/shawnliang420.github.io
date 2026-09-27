@@ -88,7 +88,7 @@ window.SITE = {
   "papers": {
     "kicker": "Publications",
     "heading": "Papers",
-    "show": 5,
+    "show": 6,
     "items": [
       {
         "title": "ABLE: Representing and Mapping LLMs via Attribution-Based Large-model Embedding",
@@ -159,22 +159,6 @@ window.SITE = {
           {
             "label": "PDF",
             "url": "#https://www.sciencedirect.com/science/article/pii/S1566253525004221"
-          }
-        ]
-      },
-      {
-        "title": "A multi-drone tracking dataset with cross-view identities",
-        "authors": "Shaofeng Liang, Coauthor Three",
-        "venue": "Journal, 2024",
-        "thumb": "figures/fig09.png",
-        "links": [
-          {
-            "label": "PDF",
-            "url": "#"
-          },
-          {
-            "label": "Data",
-            "url": "#"
           }
         ]
       }
