@@ -70,7 +70,7 @@ window.SITE = {
       },
       {
         "date": "Dec 2025",
-        "text": "One paper (DRMOT) is accepted by **Information Fusion**. "
+        "text": "One paper (CDRMOT) is accepted by **Information Fusion**. "
       }
     ],
     "showAll": true,
