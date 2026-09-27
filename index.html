@@ -345,7 +345,9 @@ const rich = s => esc(s)
   .replace(/\{school\}/g, () => SITE.school ? inl(SITE.school, true) : "")
   .replace(/\{advisor\}/g, () => SITE.advisor ? inl(SITE.advisor) : "")
   .replace(/\r/g, "");
-const paras = s => rich(s).trim().split(/\n{2,}/).map(p => `<span class="para">${p.replace(/\n/g, "<br>")}</span>`).join("");
+// keep a lone "I" glued to the word after it, so it never dangles at the end of a justified line
+const glueI = s => s.replace(/(^|[\s>(])I (?=\S)/g, "$1I\u00A0");
+const paras = s => glueI(rich(s)).trim().split(/\n{2,}/).map(p => `<span class="para">${p.replace(/\n/g, "<br>")}</span>`).join("");
 const icon = id => `<svg class="ic" aria-hidden="true"><use href="#${id}"/></svg>`;
 const iconFor = label => { const l = label.toLowerCase();
   if (l.includes("scholar")) return "i-cap"; if (l.includes("github")) return "i-github"; if (l.includes("dblp")) return "i-library";

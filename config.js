@@ -50,7 +50,7 @@ window.SITE = {
       },
       {
         "date": "Jul 2026",
-        "text": "Talk2PC is accepted by IEEE **TITS**."
+        "text": "Talk2PC is accepted by **IEEE TITS**."
       },
       {
         "date": "Jun 2026",
@@ -66,11 +66,11 @@ window.SITE = {
       },
       {
         "date": "Jan 2026",
-        "text": "One paper (AerialMind) is accepted by AAAI 2026 ( Oral ). See you in Singapore！"
+        "text": "One paper (AerialMind) is accepted by **AAAI 2026 (Oral)**. See you in Singapore！"
       },
       {
         "date": "Dec 2025",
-        "text": "One paper (DRMOT) is accepted by Information Fusion. "
+        "text": "One paper (DRMOT) is accepted by **Information Fusion**. "
       }
     ],
     "showAll": true,
