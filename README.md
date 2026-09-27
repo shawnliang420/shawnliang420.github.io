@@ -1,6 +1,6 @@
-# Academic homepage: publishing and maintenance
+# Academic homepage template: publishing and maintenance
 
-This folder is the whole website. There is no build step: open `index.html` in a browser and it runs.
+This folder is the whole website. There is no build step: open `index.html` in a browser and it runs. Everything personal lives in `config.js`; the rest is a reusable template.
 
 ```
 index.html   page skeleton, styles and rendering logic (rarely needs touching)
@@ -13,23 +13,23 @@ publish.sh   one command to push everything to GitHub Pages
 
 ## 1. Publishing (GitHub Pages)
 
-The site lives at **https://shawnliang420.github.io**, served from the repository `shawnliang420/shawnliang420.github.io`.
+GitHub serves a repository named `<username>.github.io` at **https://<username>.github.io**. Create that repository (public), then set the `REMOTE` line at the top of `publish.sh` to its SSH address.
 
 Every time you change something, run in Terminal:
 
 ```bash
-cd ~/Documents/shawnliang/项目集合/homepage
+cd /path/to/homepage
 bash publish.sh "what changed"
 ```
 
 The script initialises git on first run, ignores the 4 MB original portrait, commits everything and pushes. The live site updates within one or two minutes; if your browser still shows the old version, force-reload with ⌘⇧R.
 
-One-time setup (already done, only needed for a fresh repository): repository **Settings → Pages**, Source = *Deploy from a branch*, Branch = `main`, folder = `/ (root)`, Save.
+One-time setup for a fresh repository: repository **Settings → Pages**, Source = *Deploy from a branch*, Branch = `main`, folder = `/ (root)`, Save.
 
 If `publish.sh` fails with `Permission denied (publickey)`, this Mac has no SSH key registered with GitHub yet:
 
 ```bash
-ssh-keygen -t ed25519 -C "sliang118@connect.hkust-gz.edu.cn"   # press Enter through the prompts
+ssh-keygen -t ed25519 -C "you@example.edu"   # press Enter through the prompts
 cat ~/.ssh/id_ed25519.pub
 ```
 
@@ -65,7 +65,7 @@ Safari cannot write files from a web page: there, upload images by copying them 
 - New figures go into `figures/`; any file name is fine. Use white-background PNG: the page blends white into whatever sits behind it, so the figure looks printed on the page rather than pasted on.
 - The Research card takes its background colour from the figure itself. Leave "Card colour" empty or `auto` to sample the figure's edge colour on load, click **Pick from image** to store an explicit value, or type `none` for the default grey.
 - The portrait is `photo/portrait_web.jpg`, 4:5 portrait orientation, cropped so the head sits in the top fifth. Replace the file to change it.
-- The school logo goes in `photo/hkust.png` (transparent PNG or SVG); it appears inline before the school name in the intro.
+- The school logo goes in `photo/` (transparent PNG or SVG) with its path set in Profile → School; it appears inline before the school name in the intro.
 - Favicons (`photo/favicon-*.png`, `photo/apple-touch-icon.png`) are circular crops of the portrait. Regenerate them if the portrait changes.
 
 ## 5. The "Ask about a figure" form
@@ -77,9 +77,10 @@ The button under the figure gallery opens a short form (topic, what the paper is
 
 ## 6. The Like button
 
-The heart in the top bar keeps a shared counter through a free public counter service (abacus.jasoncameron.dev) under the namespace set in Profile → Like button. If the service is unreachable the page falls back to a per-browser count so nothing breaks. The messages that pop up on click ("Accept!", "Best paper", …) are editable, one per line. Changing the namespace restarts the count from zero.
+The heart in the top bar keeps a shared counter through a free public counter service (abacus.jasoncameron.dev) under the namespace set in Profile → Like button; pick a namespace unique to your site. If the service is unreachable the page falls back to a per-browser count so nothing breaks. The messages that pop up on click ("Accept!", "Best paper", …) are editable, one per line. Changing the namespace restarts the count from zero.
 
 ## 7. Notes
 
 - `admin.html` is published along with the site. It is only a form: it holds no secrets and cannot change the live site from the browser, but if you would rather keep it private, leave it out when uploading and use it locally.
-- Custom domain: add a `CNAME` file containing the domain to the repository root and point a DNS CNAME record at `shawnliang420.github.io`.
+- Custom domain: add a `CNAME` file containing the domain to the repository root and point a DNS CNAME record at `<username>.github.io`.
+- Starting from scratch: replace the portrait in `photo/`, the figures in `figures/`, and edit `config.js` (name, email, links, texts) through `admin.html`. Nothing else references personal data.
