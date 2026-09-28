@@ -34,11 +34,11 @@ window.SITE = {
   "news": {
     "kicker": "News",
     "heading": "Recently",
-    "show": 7,
+    "show": 8,
     "items": [
       {
         "date": "Sep 2026",
-        "text": "One paper (ABLE) is accepted by **EMNLP 2026 ( Main Oral )**. Congratulations to the collaborators!"
+        "text": "One paper  is accepted by **EMNLP 2026 ( Main Oral )**. Congratulations to the collaborators!"
       },
       {
         "date": "Sep 2026",
@@ -50,27 +50,27 @@ window.SITE = {
       },
       {
         "date": "Jul 2026",
-        "text": "Talk2PC is accepted by **IEEE TITS**."
+        "text": "One paper  is accepted by **IEEE TITS**."
       },
       {
         "date": "Jun 2026",
-        "text": "Three papers are accepted by ACM MM BNI Track 2026 (1 Oral, 2 Posters). Congratulations to the collaborators!"
+        "text": "Three papers are accepted by ACM MM BNI Track 2026 (**1 Oral, 2 Posters**). Congratulations to the collaborators!"
       },
       {
         "date": "May 2026",
         "text": "One paper is accepted by **ICML 2026**. Congratulations to Haozhe!"
       },
       {
+        "date": "Jan 2026",
+        "text": "Two paper is accepted by **AAAI 2026  (1 Oral, 1 Poster)**. See you in Singapore！"
+      },
+      {
         "date": "Feb 2026",
         "text": "One paper is accepted by **IEEE TCSVT**. "
       },
       {
-        "date": "Jan 2026",
-        "text": "One paper (AerialMind) is accepted by **AAAI 2026 (Oral)**. See you in Singapore！"
-      },
-      {
         "date": "Dec 2025",
-        "text": "One paper (CDRMOT) is accepted by **Information Fusion**. "
+        "text": "One paper  is accepted by **Information Fusion**. "
       }
     ],
     "showAll": true,
@@ -165,7 +165,7 @@ window.SITE = {
     ]
   },
   "figures": {
-    "kicker": "Selected figures",
+    "kicker": "Selected Figures",
     "show": 8,
     "heading": "The figures I'm proudest of.",
     "lede": "Every figure in my papers is drawn by me. A few favourites, drifting by. Click any of them to see it at full size.",
