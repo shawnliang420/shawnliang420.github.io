@@ -153,6 +153,14 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cu
 .person__name a:hover{color:var(--accent)}
 .person__aff{font-size:15px;color:var(--graphite)}
 
+/* ---- paper review: venue tags in two rows ---- */
+.reviews{display:grid;gap:clamp(14px,1.6vw,22px);border-top:1px solid var(--hair);padding-top:clamp(14px,1.4vw,20px)}
+.rev{display:grid;grid-template-columns:clamp(96px,10vw,130px) minmax(0,1fr);gap:12px clamp(16px,2vw,32px);align-items:baseline}
+.rev__label{font-size:15px;color:var(--graphite)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{display:inline-flex;align-items:center;height:32px;padding:0 13px;border-radius:999px;background:var(--cloud);font-size:14px;font-weight:600;letter-spacing:-.005em;white-space:nowrap}
+@media (max-width:640px){.rev{grid-template-columns:1fr}}
+
 /* ---- footer: a slogan instead of a wordmark ---- */
 .foot{background:var(--cloud);padding:clamp(28px,2.6vw,40px) 0 20px}
 .slogan{margin:0;font-size:clamp(30px,3.8vw,56px);line-height:1.08;font-weight:600;letter-spacing:-.03em;max-width:18ch;text-wrap:balance}
@@ -240,6 +248,7 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cu
       <a href="#publications" id="navPapers"></a>
       <a href="#figures" id="navFigures"></a>
       <a href="#collaborators" id="navPeople"></a>
+      <a href="#reviews" id="navReviews"></a>
       <button class="btn btn--ink btn--sm nav__cta like" id="likeBtn" type="button" aria-label="Like this page"><svg class="ic like__heart"><use href="#i-heart"/></svg><span id="likeLabel">Like</span><span class="like__n" id="likeCount">–</span></button>
     </nav>
   </div>
@@ -291,6 +300,11 @@ button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cu
   <section class="band band--mint" id="collaborators"><div class="wrap">
     <div class="sec__head"><div><p class="kicker" id="colKicker"></p><h2 class="h2" id="colHeading"></h2></div></div>
     <div class="people" id="people"></div>
+  </div></section>
+
+  <section class="band" id="reviews"><div class="wrap">
+    <div class="sec__head"><div><p class="kicker" id="revKicker"></p><h2 class="h2" id="revHeading"></h2></div></div>
+    <div class="reviews" id="reviewGroups"></div>
   </div></section>
 </main>
 
@@ -502,6 +516,15 @@ shown(SITE.collaborators).forEach(c => {
   const name = has ? `<a href="${esc(c.url.trim())}" target="_blank" rel="noopener">${esc(c.name)}</a>` : esc(c.name);
   $("#people").appendChild(el("div", "person", `<span class="person__name">${name}</span><span class="person__aff">${esc(c.affiliation)}</span>`));
 });
+
+/* ---------- paper review ---------- */
+const RV = SITE.reviews;
+if (RV && RV.groups && RV.groups.some(g => (g.items || []).length)) {
+  text("revKicker", RV.kicker); text("revHeading", RV.heading); text("navReviews", RV.navLabel || "Reviewing");
+  RV.groups.filter(g => (g.items || []).length).forEach(g => {
+    $("#reviewGroups").appendChild(el("div", "rev", `<span class="rev__label">${esc(g.label)}</span><div class="tags">${g.items.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>`));
+  });
+} else { $("#reviews").remove(); $("#navReviews").remove(); }
 
 /* ---------- footer ---------- */
 const F = SITE.footer;

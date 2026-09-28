@@ -41,7 +41,7 @@ Alternative without any terminal: on the repository page use **Add file → Uplo
 
 1. Double-click `admin.html`.
 2. First time only: click **Connect site folder** (top right), pick this `homepage` folder and allow read/write. The browser remembers it.
-3. Use the left sidebar to switch between sections: Profile, News, Research, Publications, Selected figures, Collaborators, Footer.
+3. Use the left sidebar to switch between sections: Profile, News, Research, Publications, Selected figures, Collaborators, Paper Review, Footer. Paper Review is two plain lists (conferences and journals, one venue per line) rendered as tags; leave both empty and the section disappears from the site.
 4. Click **Save to folder** when done (writes `config.js` in place), then run `publish.sh`.
 
 Lists (News, Publications, Selected figures, Collaborators) all work the same way: only the first *N* entries are shown on the site (set *N* in "show the first N"), the rest are tucked behind **Manage others**; **Add** inserts at the top and opens the new entry; each entry collapses to a one-line summary and expands on click; every entry has move-up, move-down and delete. Old entries never need deleting: lower *N* and they disappear from the site, raise it and they come back.

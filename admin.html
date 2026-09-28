@@ -311,6 +311,13 @@ function build() {
     (body, it, refresh) => { const gg = grid(body, "grid3"); gg.appendChild(field(it, "name", "名字", { onInput: refresh })); gg.appendChild(field(it, "affiliation", "单位", { onInput: refresh })); gg.appendChild(field(it, "url", "主页")); },
     { add: "添加合作者" });
 
+  s = section("reviews", "Paper Review", "审稿经历：会议和期刊各一栏，每行一个；两栏都为空时网站不显示这个区块。");
+  S.reviews = S.reviews || { kicker: "Paper Review", heading: "Reviewer for", groups: [{ label: "Conferences", items: [] }, { label: "Journals", items: [] }] };
+  b = boxed(s); g = grid(b); g.appendChild(field(S.reviews, "kicker", "区块名（蓝）")); g.appendChild(field(S.reviews, "heading", "副标题（黑）"));
+  S.reviews.groups.forEach(gr => { const w = h("div", "f"); const lab = h("label", null, ""); w.appendChild(lab);
+    const name = h("input"); name.value = gr.label; name.style.cssText = "max-width:240px;margin-bottom:8px"; name.addEventListener("input", () => gr.label = name.value); w.appendChild(name);
+    const t = h("textarea"); t.value = (gr.items || []).join("\n"); t.placeholder = "每行一个，例如 ICLR 2026"; t.style.minHeight = "120px"; t.addEventListener("input", () => gr.items = t.value.split("\n").map(x => x.trim()).filter(Boolean)); w.appendChild(t); b.appendChild(w); });
+
   s = section("footer", "页脚", "口号一行英文一行中文。");
   b = boxed(s); b.appendChild(field(S.footer, "slogan", "口号（英文大字）")); b.appendChild(field(S.footer, "sloganZh", "口号（中文小字）"));
   g = grid(b); g.appendChild(field(S.footer, "location", "地点")); g.appendChild(field(S.footer, "copyright", "版权行"));

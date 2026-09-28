@@ -295,6 +295,39 @@ window.SITE = {
       }
     ]
   },
+  "reviews": {
+    "kicker": "Paper Review",
+    "heading": "Reviewer for",
+    "groups": [
+      {
+        "label": "Conferences",
+        "items": [
+          "ICLR 2026",
+          "ICLR 2027",
+          "ACM MM 2026",
+          "AAAI 2026",
+          "AAAI 2027",
+          "ECCV 2026",
+          "ICRA 2026"
+        ]
+      },
+      {
+        "label": "Journals",
+        "items": [
+          "IEEE TITS",
+          "IEEE TCSVT",
+          "Information Fusion",
+          "Scientific Reports",
+          "Journal of King Saud University – Computer and Information Sciences",
+          "The Visual Computer",
+          "Machine Vision and Applications",
+          "Neural Processing Letters",
+          "Discover Computing",
+          "Discover Applied Sciences"
+        ]
+      }
+    ]
+  },
   "footer": {
     "slogan": "Leave the barriers behind. Keep the road ahead.",
     "sloganZh": "让障碍留在过去，让路留给未来。",
