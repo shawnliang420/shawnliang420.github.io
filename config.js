@@ -246,7 +246,7 @@ window.SITE = {
   "collaborators": {
     "kicker": "Collaborators",
     "heading": "People I work with",
-    "show": 8,
+    "show": 10,
     "items": [
       {
         "name": "Wenshuo Chen",
@@ -292,6 +292,11 @@ window.SITE = {
         "name": "Sijia Chen",
         "affiliation": "Huazhong University of Science and Technology",
         "url": "#"
+      },
+      {
+        "name": "Lei Wang ",
+        "affiliation": "Griffith University",
+        "url": "https://leiwangr.github.io/"
       }
     ]
   },
@@ -302,11 +307,9 @@ window.SITE = {
       {
         "label": "Conferences",
         "items": [
-          "ICLR 2026",
-          "ICLR 2027",
+          "ICLR 2026/2027",
           "ACM MM 2026",
-          "AAAI 2026",
-          "AAAI 2027",
+          "AAAI 2026/2027",
           "ECCV 2026",
           "ICRA 2026"
         ]
@@ -316,6 +319,7 @@ window.SITE = {
         "items": [
           "IEEE TITS",
           "IEEE TCSVT",
+          "TMLR",
           "Information Fusion",
           "Scientific Reports",
           "Journal of King Saud University – Computer and Information Sciences",
