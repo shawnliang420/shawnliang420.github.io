@@ -520,7 +520,7 @@ shown(SITE.collaborators).forEach(c => {
 /* ---------- paper review ---------- */
 const RV = SITE.reviews;
 if (RV && RV.groups && RV.groups.some(g => (g.items || []).length)) {
-  text("revKicker", RV.kicker); text("revHeading", RV.heading); text("navReviews", RV.navLabel || "Reviewing");
+  text("revKicker", RV.kicker); text("revHeading", RV.heading); text("navReviews", RV.navLabel || "Service");
   RV.groups.filter(g => (g.items || []).length).forEach(g => {
     $("#reviewGroups").appendChild(el("div", "rev", `<span class="rev__label">${esc(g.label)}</span><div class="tags">${g.items.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>`));
   });

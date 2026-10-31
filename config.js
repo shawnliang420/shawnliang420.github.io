@@ -3,7 +3,7 @@ window.SITE = {
   "name": "Shaofeng Liang",
   "portrait": "photo/portrait_web.jpg",
   "email": "sliang118@connect.hkust-gz.edu.cn",
-  "lede": "I received  my bachelor’s and master’s degrees from China University of Petroleum (East China), where be advised by Prof. **Chenglizhao Chen**.  In September 2026, I joined **{school}** as a Ph.D student under the supervision of Prof. **Yutao Yue**.\n\nMy research interests lie in **Assistive Robotics**. During my master’s studies, I focused on visual perception for UAVs and multimodal perception. My doctoral research will focus on robotic guide dogs.  I aspire to develop **human-centered embodied AI that advances accessibility, independence, and dignity**. Ultimately, I hope my research can help make independent living and equal participation a reality for more people.\n\nWhat's more, I enjoy translating complex ideas into clear, compelling visuals that make research easier to understand and communicate. I have created figures and visualizations for 30+ research papers. ",
+  "lede": "I received  my bachelor’s and master’s degrees from China University of Petroleum (East China), where be advised by Prof. **Chenglizhao Chen**.  In September 2026, I joined **{school}** as a Ph.D student under the supervision of Prof. **Yutao Yue**.\n\nMy research interests lie in **Accessibility Assistive AI, Human-centered Assistive, and Assistive Robotics**. During my master’s studies, I focused on visual perception for UAVs and multimodal perception. My doctoral research will focus on robotic guide dogs.  I aspire to develop **human-centered embodied AI that advances accessibility, independence, and dignity**. Ultimately, I hope my research can help make independent living and equal participation a reality for more people.",
   "school": {
     "name": "HKUST (GZ)",
     "url": "https://hkust-gz.edu.cn",
@@ -36,6 +36,10 @@ window.SITE = {
     "heading": "Recently",
     "show": 8,
     "items": [
+      {
+        "date": "Oct 2026",
+        "text": "I serve as a Workshop Coordinator for the [TIME 2027 Workshop](https://time.griffith.edu.au/workshop/time2027/) at the WWW 2027, working with Dr. [Lei Wang](https://leiwangr.github.io/), Wenshuo Chen."
+      },
       {
         "date": "Sep 2026",
         "text": "One paper  is accepted by **EMNLP 2026 ( Main Oral )**. Congratulations to the collaborators!"
@@ -308,10 +312,12 @@ window.SITE = {
         "label": "Conferences",
         "items": [
           "ICLR 2026/2027",
-          "ACM MM 2026",
           "AAAI 2026/2027",
+          "ACM MM 2026",
+          "WWW 2027",
+          "ARR 2026",
           "ECCV 2026",
-          "ICRA 2026"
+          "ICRA 2026/2027"
         ]
       },
       {
