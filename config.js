@@ -38,7 +38,11 @@ window.SITE = {
     "items": [
       {
         "date": "Oct 2026",
-        "text": "I serve as a Workshop Coordinator for the [TIME 2027 Workshop](https://time.griffith.edu.au/workshop/time2027/) at the WWW 2027, working with Dr. [Lei Wang](https://leiwangr.github.io/), Wenshuo Chen."
+        "text": "Our team (**as Team Leader**) won the **Third Prize** (5/79) in the **EmbodiedCity** track of the [ART 2026 Challenge](https://www.atrdata.cn/#/customer/match).  \n\n\nThanks to the **[Sijia Chen](https://scholar.google.com/citations?user=G2k32_gAAAAJ&hl=zh-CN&oi=ao)** and **[Xinjie Yao](https://yxjdarren.github.io/)** for the great teamwork!"
+      },
+      {
+        "date": "Oct 2026",
+        "text": "I serve as a Workshop Coordinator for the [TIME 2027 Workshop](https://time.griffith.edu.au/workshop/time2027/) at the WWW 2027, working with Dr. [Lei Wang](https://leiwangr.github.io/), [Wenshuo Chen](https://chatonz.github.io/)."
       },
       {
         "date": "Sep 2026",
@@ -295,7 +299,7 @@ window.SITE = {
       {
         "name": "Sijia Chen",
         "affiliation": "Huazhong University of Science and Technology",
-        "url": "#"
+        "url": "https://scholar.google.com/citations?user=G2k32_gAAAAJ&hl=zh-CN&oi=ao"
       },
       {
         "name": "Lei Wang ",
